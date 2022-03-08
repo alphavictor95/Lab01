@@ -34,10 +34,15 @@ public class FXMLController {
 
     @FXML
     private Button btnReset;
+    
+    @FXML
+    private TextArea txtTempo;
+
 
     @FXML
     void doInsert(ActionEvent event) {
     	// TODO
+    	long startTime = System.nanoTime();
     	elenco.addParola(txtParola.getText());
     	String ret = "";
     	for(String p : elenco.getElenco()) {
@@ -46,13 +51,18 @@ public class FXMLController {
     	ret = ret.substring(0, ret.length()-1);
     	txtResult.setText(ret);
     	txtParola.clear();
+    	long fine = (System.nanoTime()- startTime);
+    	txtTempo.setText(String.valueOf(fine));
     }
 
     @FXML
     void doReset(ActionEvent event) {
     	// TODO
+    	long startTime = System.nanoTime();
     	txtResult.clear();
     	elenco.reset();
+    	long fine = (System.nanoTime()- startTime);
+    	txtTempo.setText(String.valueOf(fine));
     }
     
     @FXML
@@ -60,6 +70,7 @@ public class FXMLController {
     	//come cancellare anche l ultima parola dell elenco senza usare reset??
     	String parolaSelezionata = null;
     	boolean vuoto=false;
+    	long startTime = System.nanoTime();
     	parolaSelezionata = txtResult.getSelectedText();
     	elenco.cancella(parolaSelezionata);
     	String ret = "";
@@ -74,6 +85,8 @@ public class FXMLController {
     	else {ret= "Elenco vuoto";}
     	txtResult.setText(ret);
     	txtParola.clear();
+    	long fine = (System.nanoTime() - startTime);
+    	txtTempo.setText(String.valueOf(fine));
 
     }
 
